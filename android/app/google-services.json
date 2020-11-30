@@ -1,0 +1,69 @@
+{
+  "project_info": {
+    "project_number": "175787402228",
+    "firebase_url": "https://taxiapp-ce5fe.firebaseio.com",
+    "project_id": "taxiapp-ce5fe",
+    "storage_bucket": "taxiapp-ce5fe.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:175787402228:android:baf2b9249ec87453a98fa1",
+        "android_client_info": {
+          "package_name": "com.example.madhu_flutter_app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "175787402228-k6aqbqpklqu7qi2k6mid1c4a1qc0qjp2.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBd5-THNfZ_KPCv7kmd-tuukiCgfaeFSHE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "175787402228-k6aqbqpklqu7qi2k6mid1c4a1qc0qjp2.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:175787402228:android:13c82cfde2e319d9a98fa1",
+        "android_client_info": {
+          "package_name": "com.example.madhu_taxiapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "175787402228-k6aqbqpklqu7qi2k6mid1c4a1qc0qjp2.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBd5-THNfZ_KPCv7kmd-tuukiCgfaeFSHE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "175787402228-k6aqbqpklqu7qi2k6mid1c4a1qc0qjp2.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
