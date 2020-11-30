@@ -1,12 +1,62 @@
-import 'package:flutter/cupertino.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
+import 'package:madhu_taxiapp/screens/MyApp.dart';
+import 'package:madhu_taxiapp/screens/registrationPage.dart';
+
+import '../main.dart';
 
 class LoginPage extends StatefulWidget {
+  static const String idScreen = "login";
   @override
   _LoginPageState createState() => _LoginPageState();
 }
 
 class _LoginPageState extends State<LoginPage> {
+  // define the variable here
+  TextEditingController emailTextEditingController = TextEditingController();
+  TextEditingController passwordTextEditingController = TextEditingController();
+
+  // define the function here
+  loginAndAuthenticateUser(BuildContext context) async {
+    final FirebaseAuth _firebaseAuth = FirebaseAuth.instance;
+    // create a firebaseUser using FirebaseUser function through the instance of FirebaseAuth
+    // textEditingController.text helps to grap the value ented by the users
+    final User firebaseUser = (await _firebaseAuth
+            .signInWithEmailAndPassword(
+                email: emailTextEditingController.text,
+                password: passwordTextEditingController.text)
+            .catchError((error) {
+      Fluttertoast.showToast(msg: "${error} error occurs");
+    }))
+        .user;
+    //if here is somethig on firebaseUser that means user login successfully
+    //But if firebaseUser value is null then user is not login
+    // so checking the condition
+    if (firebaseUser != null) {
+      // user login successfully
+
+// we have created dbref at main.dart sowe can use it anywhere
+      var d1 = dbref.child(
+          firebaseUser.uid); // creating the user information based on the uid
+
+      d1.once().then((DataSnapshot snapShot) {
+        if (snapShot.value != null) {}
+      });
+      Fluttertoast.showToast(msg: "Login Successfully");
+      // After successfully registered redirect to main page
+      Navigator.push(context, MaterialPageRoute(builder: (context) {
+        return MyApp();
+      }));
+    } else {
+      //unable to login the user
+      //display the error message
+      _firebaseAuth.signOut();
+      Fluttertoast.showToast(msg: "No record Found, Please create New Account");
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -41,35 +91,49 @@ class _LoginPageState extends State<LoginPage> {
                   child: Column(
                     children: [
                       TextField(
+                        controller: emailTextEditingController,
                         keyboardType: TextInputType
                             .emailAddress, // prefer email type from keyboard
                         decoration: InputDecoration(
-                            labelText: 'Email address',
-                            labelStyle: TextStyle(fontSize: 14.0),
+                            labelText: 'Email Address',
+                            labelStyle: TextStyle(fontSize: 20.0),
                             hintStyle:
-                                TextStyle(color: Colors.grey, fontSize: 10.0)),
-                        style: TextStyle(fontSize: 14),
+                                TextStyle(color: Colors.grey, fontSize: 15.0)),
+                        style: TextStyle(
+                            fontSize:
+                                20), // gives the sizeof whileinputing in device
                       ),
                       SizedBox(
                         height: 10,
                       ),
                       TextField(
+                        controller: passwordTextEditingController,
                         obscureText:
                             true, //obscure helps to hide the character while typing password
                         keyboardType: TextInputType.emailAddress,
                         decoration: InputDecoration(
                             labelText: 'Password',
-                            labelStyle: TextStyle(fontSize: 14.0),
+                            labelStyle: TextStyle(fontSize: 20.0),
                             hintStyle:
-                                TextStyle(color: Colors.grey, fontSize: 10.0)),
-                        style: TextStyle(fontSize: 14),
+                                TextStyle(color: Colors.grey, fontSize: 15.0)),
+                        style: TextStyle(fontSize: 20),
                       ),
                       SizedBox(
                         height: 30,
                       ),
                       RaisedButton(
                         onPressed: () {
-                          print("clicked");
+                          // print("clicked");
+                          if (!emailTextEditingController.text.contains("@")) {
+                            Fluttertoast.showToast(
+                                msg: "Email address is not valid");
+                          } else if (passwordTextEditingController
+                              .text.isEmpty) {
+                            Fluttertoast.showToast(
+                                msg: "Password is Mandatory");
+                          } else {
+                            loginAndAuthenticateUser(context);
+                          }
                         },
                         color: Colors.yellowAccent,
                         child: Center(
@@ -90,7 +154,13 @@ class _LoginPageState extends State<LoginPage> {
                 ),
                 FlatButton(
                   onPressed: () {
-                    print("Flat Button is clicked, Go to Registration Page");
+                    // print("Flat Button is clicked, Go to Registration Page");
+                    // Navigator.pushNamedAndRemoveUntil(
+                    //     context, RegistrationPage.idScreen, (route) => false);
+                    Navigator.push(context,
+                        MaterialPageRoute(builder: (context) {
+                      return RegistrationPage();
+                    }));
                   },
                   child: Text('Don\'t have an account, First Register  here'),
                 )

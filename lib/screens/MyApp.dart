@@ -2,6 +2,7 @@ import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 
 class MyApp extends StatefulWidget {
+  static const String idScreen = "myAppMainScreen";
   @override
   _MyAppState createState() => _MyAppState();
 }
@@ -24,18 +25,18 @@ class _MyAppState extends State<MyApp> {
                 color: Colors.teal,
                 child: Text("Material Button connect to db"),
                 onPressed: () {
-                  DatabaseReference dbref =
-                      FirebaseDatabase.instance.reference().child("path");
+                  // DatabaseReference dbref =
+                  //     FirebaseDatabase.instance.reference().child("users");
 
-                  dbref.set("Madhu  Database Connected Successfully");
+                  // dbref.set("Madhu  Database Connected Successfully");
                 },
               ),
               RaisedButton(
                 onPressed: () {
-                  DatabaseReference dbref =
-                      FirebaseDatabase.instance.reference().child("path");
+                  // DatabaseReference dbref =
+                  //     FirebaseDatabase.instance.reference().child("path");
 
-                  dbref.set("Hi Madhu,  Database Connected Successfully");
+                  // dbref.set("Hi Madhu,  Database Connected Successfully");
                 },
                 child: Text("Raised Button"),
               )
