@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:madhu_taxiapp/screens/MyApp.dart';
 import './screens/registrationPage.dart';
 import './screens/loginpage.dart';
 
@@ -36,7 +37,16 @@ void main() {
   runApp(MaterialApp(
     title: "Madhu Taxi App",
     // home: LoginPage(),
-    home: RegistrationPage(),
+    // home: RegistrationPage(),
+
+    // set initialRoute to login Page
+    initialRoute: LoginPage.idScreen,
+    routes: {
+      // Ways to define ()=> is equivalent to (){}
+      RegistrationPage.idScreen: (context) => RegistrationPage(),
+      LoginPage.idScreen: (context) => LoginPage(),
+      MyApp.idScreen: (context) => MyApp(),
+    },
     theme: ThemeData(
         // backgroundColor: Colors.black,
         primarySwatch: Colors.blue,

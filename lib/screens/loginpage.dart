@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:madhu_taxiapp/screens/registrationPage.dart';
 
 class LoginPage extends StatefulWidget {
+  static const String idScreen = "login";
   @override
   _LoginPageState createState() => _LoginPageState();
 }
@@ -91,7 +93,9 @@ class _LoginPageState extends State<LoginPage> {
                 ),
                 FlatButton(
                   onPressed: () {
-                    print("Flat Button is clicked, Go to Registration Page");
+                    // print("Flat Button is clicked, Go to Registration Page");
+                    Navigator.pushNamedAndRemoveUntil(
+                        context, RegistrationPage.idScreen, (route) => false);
                   },
                   child: Text('Don\'t have an account, First Register  here'),
                 )

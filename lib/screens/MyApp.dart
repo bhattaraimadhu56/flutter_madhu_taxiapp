@@ -2,6 +2,7 @@ import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 
 class MyApp extends StatefulWidget {
+  static const String idScreen = "myAppMainScreen";
   @override
   _MyAppState createState() => _MyAppState();
 }
