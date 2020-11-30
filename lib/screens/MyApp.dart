@@ -26,7 +26,7 @@ class _MyAppState extends State<MyApp> {
                 child: Text("Material Button connect to db"),
                 onPressed: () {
                   DatabaseReference dbref =
-                      FirebaseDatabase.instance.reference().child("path");
+                      FirebaseDatabase.instance.reference().child("users");
 
                   dbref.set("Madhu  Database Connected Successfully");
                 },
