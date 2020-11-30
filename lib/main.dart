@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import './screens/registrationPage.dart';
 import './screens/loginpage.dart';
 
 // Paste the firebase database code here
@@ -34,7 +35,8 @@ import './screens/loginpage.dart';
 void main() {
   runApp(MaterialApp(
     title: "Madhu Taxi App",
-    home: LoginPage(),
+    // home: LoginPage(),
+    home: RegistrationPage(),
     theme: ThemeData(
         // backgroundColor: Colors.black,
         primarySwatch: Colors.blue,
