@@ -94,8 +94,12 @@ class _LoginPageState extends State<LoginPage> {
                 FlatButton(
                   onPressed: () {
                     // print("Flat Button is clicked, Go to Registration Page");
-                    Navigator.pushNamedAndRemoveUntil(
-                        context, RegistrationPage.idScreen, (route) => false);
+                    // Navigator.pushNamedAndRemoveUntil(
+                    //     context, RegistrationPage.idScreen, (route) => false);
+                    Navigator.push(context,
+                        MaterialPageRoute(builder: (context) {
+                      return RegistrationPage();
+                    }));
                   },
                   child: Text('Don\'t have an account, First Register  here'),
                 )

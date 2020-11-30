@@ -1,6 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:madhu_taxiapp/screens/MyApp.dart';
 import 'package:madhu_taxiapp/screens/loginpage.dart';
 
 import '../main.dart';
@@ -178,8 +179,16 @@ class _RegistrationPageState extends State<RegistrationPage> {
                 FlatButton(
                   onPressed: () {
                     // print("Flat Button is clicked, Go to Registration Page");
-                    Navigator.pushNamedAndRemoveUntil(
-                        context, LoginPage.idScreen, (route) => false);
+                    // Navigator.pushNamedAndRemoveUntil(
+                    //     context, LoginPage.idScreen, (route) => false);
+                    // Navigator.push(context,
+                    //     MaterialPageRoute(builder: (context) {
+                    //   return MyApp();
+                    // }));
+                    Navigator.push(context,
+                        MaterialPageRoute(builder: (context) {
+                      return LoginPage();
+                    }));
                   },
                   child: Text('Already have an account, Login Now'),
                 )
@@ -227,6 +236,9 @@ class _RegistrationPageState extends State<RegistrationPage> {
       d1.set(userDataMap);
       Fluttertoast.showToast(
           msg: "Congratulation ! Your account has been created successfully");
+      // After successfully registered redirect to main page
+      Navigator.pushNamedAndRemoveUntil(
+          context, MyApp.idScreen, (route) => false);
     } else {
       //unable to create the user
       //display the error message
