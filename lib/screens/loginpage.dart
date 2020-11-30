@@ -44,11 +44,13 @@ class _LoginPageState extends State<LoginPage> {
                         keyboardType: TextInputType
                             .emailAddress, // prefer email type from keyboard
                         decoration: InputDecoration(
-                            labelText: 'Email address',
-                            labelStyle: TextStyle(fontSize: 14.0),
+                            labelText: 'Email Address',
+                            labelStyle: TextStyle(fontSize: 20.0),
                             hintStyle:
-                                TextStyle(color: Colors.grey, fontSize: 10.0)),
-                        style: TextStyle(fontSize: 14),
+                                TextStyle(color: Colors.grey, fontSize: 15.0)),
+                        style: TextStyle(
+                            fontSize:
+                                20), // gives the sizeof whileinputing in device
                       ),
                       SizedBox(
                         height: 10,
@@ -59,10 +61,10 @@ class _LoginPageState extends State<LoginPage> {
                         keyboardType: TextInputType.emailAddress,
                         decoration: InputDecoration(
                             labelText: 'Password',
-                            labelStyle: TextStyle(fontSize: 14.0),
+                            labelStyle: TextStyle(fontSize: 20.0),
                             hintStyle:
-                                TextStyle(color: Colors.grey, fontSize: 10.0)),
-                        style: TextStyle(fontSize: 14),
+                                TextStyle(color: Colors.grey, fontSize: 15.0)),
+                        style: TextStyle(fontSize: 20),
                       ),
                       SizedBox(
                         height: 30,
