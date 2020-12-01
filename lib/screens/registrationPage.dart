@@ -1,8 +1,9 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-import 'package:madhu_taxiapp/screens/MyApp.dart';
+import 'package:madhu_taxiapp/screens/MainScreen.dart';
 import 'package:madhu_taxiapp/screens/loginpage.dart';
+import 'package:madhu_taxiapp/widgets/ProgressDialog.dart';
 
 import '../main.dart';
 
@@ -54,6 +55,8 @@ class _RegistrationPageState extends State<RegistrationPage> {
                     children: [
                       TextField(
                         controller: nameTextEditingController,
+                        textInputAction: TextInputAction
+                            .next, // Move  focus and cursor to next input or tab
                         keyboardType: TextInputType
                             .name, // prefer email type from keyboard
                         decoration: InputDecoration(
@@ -70,6 +73,8 @@ class _RegistrationPageState extends State<RegistrationPage> {
                       ),
                       TextField(
                         controller: addressTextEditingController,
+                        textInputAction: TextInputAction
+                            .next, // Move  focus and cursor to next input or tab
                         keyboardType: TextInputType
                             .text, // prefer email type from keyboard
                         decoration: InputDecoration(
@@ -86,6 +91,8 @@ class _RegistrationPageState extends State<RegistrationPage> {
                       ),
                       TextField(
                         controller: phoneTextEditingController,
+                        textInputAction: TextInputAction
+                            .next, // Move  focus and cursor to next input or tab
                         keyboardType: TextInputType
                             .phone, // prefer email type from keyboard
                         decoration: InputDecoration(
@@ -102,6 +109,8 @@ class _RegistrationPageState extends State<RegistrationPage> {
                       ),
                       TextField(
                         controller: emailTextEditingController,
+                        textInputAction: TextInputAction
+                            .next, // Move  focus and cursor to next input or tab
                         keyboardType: TextInputType
                             .emailAddress, // prefer email type from keyboard
                         decoration: InputDecoration(
@@ -118,6 +127,8 @@ class _RegistrationPageState extends State<RegistrationPage> {
                       ),
                       TextField(
                         controller: passwordTextEditingController,
+                        textInputAction: TextInputAction
+                            .next, // Move  focus and cursor to next input or tab
                         obscureText:
                             true, //obscure helps to hide the character while typing password
                         keyboardType: TextInputType.text,
@@ -201,6 +212,12 @@ class _RegistrationPageState extends State<RegistrationPage> {
   }
 
   registerNewUser(BuildContext context) async {
+    showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return ProgressDialog(dataMessage: "Registering, Please Wait!");
+        });
+
     // creating the instance of firebase auth
     // _(underscore)==>represent private variable
     final FirebaseAuth _firebaseAuth = FirebaseAuth.instance;
@@ -211,7 +228,8 @@ class _RegistrationPageState extends State<RegistrationPage> {
                 email: emailTextEditingController.text,
                 password: passwordTextEditingController.text)
             .catchError((error) {
-      Fluttertoast.showToast(msg: "${error} error occurs");
+      Navigator.pop(context);
+      Fluttertoast.showToast(msg: error + "error occurs");
     }))
         .user;
 
@@ -240,6 +258,7 @@ class _RegistrationPageState extends State<RegistrationPage> {
       Navigator.pushNamedAndRemoveUntil(
           context, MyApp.idScreen, (route) => false);
     } else {
+      Navigator.pop(context);
       //unable to create the user
       //display the error message
       Fluttertoast.showToast(msg: "Unable to register the user");

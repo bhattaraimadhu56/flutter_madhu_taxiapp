@@ -2,13 +2,15 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-import 'package:madhu_taxiapp/screens/MyApp.dart';
+import 'package:madhu_taxiapp/screens/MainScreen.dart';
 import 'package:madhu_taxiapp/screens/registrationPage.dart';
+import 'package:madhu_taxiapp/widgets/ProgressDialog.dart';
 
 import '../main.dart';
 
 class LoginPage extends StatefulWidget {
   static const String idScreen = "login";
+
   @override
   _LoginPageState createState() => _LoginPageState();
 }
@@ -20,7 +22,15 @@ class _LoginPageState extends State<LoginPage> {
 
   // define the function here
   loginAndAuthenticateUser(BuildContext context) async {
+    // show Dialog
+    showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return ProgressDialog(dataMessage: " Authenticating, Please Wait!");
+        });
+
     final FirebaseAuth _firebaseAuth = FirebaseAuth.instance;
+
     // create a firebaseUser using FirebaseUser function through the instance of FirebaseAuth
     // textEditingController.text helps to grap the value ented by the users
     final User firebaseUser = (await _firebaseAuth
@@ -28,6 +38,7 @@ class _LoginPageState extends State<LoginPage> {
                 email: emailTextEditingController.text,
                 password: passwordTextEditingController.text)
             .catchError((error) {
+      Navigator.pop(context);
       Fluttertoast.showToast(msg: "${error} error occurs");
     }))
         .user;
@@ -52,7 +63,9 @@ class _LoginPageState extends State<LoginPage> {
     } else {
       //unable to login the user
       //display the error message
+      Navigator.pop(context);
       _firebaseAuth.signOut();
+
       Fluttertoast.showToast(msg: "No record Found, Please create New Account");
     }
   }
@@ -92,6 +105,8 @@ class _LoginPageState extends State<LoginPage> {
                     children: [
                       TextField(
                         controller: emailTextEditingController,
+                        textInputAction: TextInputAction
+                            .next, // Move  focus and cursor to next input or tab
                         keyboardType: TextInputType
                             .emailAddress, // prefer email type from keyboard
                         decoration: InputDecoration(
@@ -108,6 +123,9 @@ class _LoginPageState extends State<LoginPage> {
                       ),
                       TextField(
                         controller: passwordTextEditingController,
+                        textInputAction: TextInputAction
+                            .next, // Move  focus and cursor to next input or tab
+
                         obscureText:
                             true, //obscure helps to hide the character while typing password
                         keyboardType: TextInputType.emailAddress,

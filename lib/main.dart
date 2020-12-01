@@ -1,7 +1,7 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
-import 'package:madhu_taxiapp/screens/MyApp.dart';
+import 'package:madhu_taxiapp/screens/MainScreen.dart';
 import './screens/registrationPage.dart';
 import './screens/loginpage.dart';
 
@@ -28,7 +28,7 @@ void main() async {
     // home: RegistrationPage(),
 
     // set initialRoute to login Page
-    initialRoute: LoginPage.idScreen,
+    initialRoute: MyApp.idScreen,
     routes: {
       // Ways to define ()=> is equivalent to (){}
       RegistrationPage.idScreen: (context) => RegistrationPage(),
