@@ -39,7 +39,7 @@ class _LoginPageState extends State<LoginPage> {
                 password: passwordTextEditingController.text)
             .catchError((error) {
       Navigator.pop(context);
-      Fluttertoast.showToast(msg: "${error} error occurs");
+      Fluttertoast.showToast(msg: error + "error occurs");
     }))
         .user;
     //if here is somethig on firebaseUser that means user login successfully
