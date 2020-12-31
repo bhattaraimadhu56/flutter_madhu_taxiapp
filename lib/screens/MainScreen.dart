@@ -1,8 +1,12 @@
 // import 'package:firebase_database/firebase_database.dart';
-// import 'dart:async';
+import 'dart:async';
+import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:geolocator/geolocator.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:madhu_taxiapp/helpers/helpermethods.dart';
+// import 'package:madhu_taxiapp/helpers/helpermethods.dart';
 import 'package:madhu_taxiapp/styles/styles.dart';
 import 'package:madhu_taxiapp/widgets/BrandDivider.dart';
 import 'package:outline_material_icons/outline_material_icons.dart';
@@ -16,10 +20,28 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
+  double mapBottomPadding = 0;
 // Google Map Part
-  // Completer<GoogleMapController> _controllerGoogleMap = Completer();
+  Completer<GoogleMapController> _controllerGoogleMap = Completer();
   GoogleMapController newGoogleMapController;
   GlobalKey<ScaffoldState> scaffoldKey = new GlobalKey<ScaffoldState>();
+
+//To show the current Position on the map
+// get package geolocator: ^6.1.9
+  Position currentPosition;
+
+  void setupPositionLocator() async {
+    Position position = await Geolocator.getCurrentPosition(
+        desiredAccuracy: LocationAccuracy.bestForNavigation);
+    currentPosition = position;
+
+    LatLng pos = LatLng(position.latitude, position.longitude);
+    CameraPosition cp = new CameraPosition(target: pos, zoom: 14);
+    newGoogleMapController.animateCamera(CameraUpdate.newCameraPosition(cp));
+
+    String address = await HelperMethods.findCordinateAddress(position);
+    print('My address is ' + address);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -108,10 +130,20 @@ class _MyAppState extends State<MyApp> {
                         LatLng(-36.987750, 174.845371), // lat lan of Auckland
                     zoom: 14.4746), // just above we initialize
                 mapType: MapType.normal,
-                // onMapCreated: (GoogleMapController controller) {
-                //   _controllerGoogleMap.complete(controller);
-                //   newGoogleMapController = controller;
-                // },
+                myLocationEnabled: true,
+                zoomGesturesEnabled: true,
+                zoomControlsEnabled: true,
+                myLocationButtonEnabled: true,
+                padding: EdgeInsets.only(bottom: mapBottomPadding),
+
+                onMapCreated: (GoogleMapController controller) {
+                  _controllerGoogleMap.complete(controller);
+                  newGoogleMapController = controller;
+                  setState(() {
+                    mapBottomPadding = Platform.isAndroid ? 280 : 270;
+                  });
+                  setupPositionLocator();
+                },
               ),
 
               ///MenuButton
